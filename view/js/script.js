@@ -149,37 +149,43 @@ function todo(){
 
 }
 
-// TODO
-// Fix the highlighting for selected engine
 
 function engines(){
-    var engines = ['google', 'bing'],
+    var engines = [
+            {'type':'!g','engine': 'https://www.google.com/search?q='},
+            {'type':'!b','engine': 'https://www.bing.com/search?q='},
+            {'type':'!yt','engine': 'https://www.youtube.com/results?search_query='}
+        ],
         input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),
-        li,item,node,regex,highlight,i;
+        li,item,node,regex,highlight,i,selected, search_url;
     
     engines.forEach(function(engine){
         li = document.createElement('li');
-        item = document.createTextNode('!'+engine.charAt(0));
+        item = document.createTextNode(engine.type);
         li.appendChild(item);
-        li.setAttribute('id', '!'+engine.charAt(0)+' ');
+        li.setAttribute('id', engine.type+' ');
         footer.appendChild(li);
     });
     input.addEventListener('keyup', function(e){
         footer = document.querySelector('.engines')
         engines.forEach(function(engine){
-            regex = new RegExp('^\!'+engine.charAt(0)+' ');
+            regex = new RegExp('^\\'+engine.type+' ');
             if(regex.test(input.value)){
                 if(document.getElementById(input.value) != null){
-                    console.log(true);
-                    console.log(document.getElementById(input.value));
-                    document.getElementById(input.value).style = 'color: white';
+                    for(i = 0; i < footer.childNodes.length; i++){
+                        footer.childNodes[i].classList.remove('red');
+                    }
+                    selected = engine.engine;
+                    document.getElementById(input.value).classList.add('red');
                 }
-            }else{
-                for(i = 0; i < footer.childNodes.length; i++){
-                    footer.childNodes[i].style = '';
+                if(selected != '' && selected != undefined){
+                    search_url = selected + input.value.replace(regex, '');
                 }
             }
         })
+        if(e.code == 'Enter' && e.key == 'Enter' && e.keyCode == '13' && selected != undefined){
+            location.href = search_url;
+        }
     })
 }

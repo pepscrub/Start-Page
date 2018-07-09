@@ -108,6 +108,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     color: rgba(var(--white), 1);
 }
 .searchegine{
+    animation: opacity 125ms linear;
     position: fixed;
     top: 0;
     left: 0;
@@ -123,6 +124,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     text-align: left;
 }
 .engines > li{
+    transition: color 250ms linear;
     margin: 0 2.5% 0 1%;
 }
 .panel{
