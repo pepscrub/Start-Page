@@ -1,8 +1,11 @@
 window.addEventListener('load', function(){
+    const loader = document.getElementById('loader');
     dateclock();
     tabs();
     tab_panels();
     engines();
+    loader.style = 'opacity: 0;';
+    setTimeout(function(){loader.style.display = 'none';}, 248)
 });
 window.addEventListener('keyup', function(e){
     var input = document.querySelector('.searchegine');
@@ -154,7 +157,11 @@ function engines(){
     var engines = [
             {'type':'!g','engine': 'https://www.google.com/search?q='},
             {'type':'!b','engine': 'https://www.bing.com/search?q='},
-            {'type':'!yt','engine': 'https://www.youtube.com/results?search_query='}
+            {'type':'!yt','engine': 'https://www.youtube.com/results?search_query='},
+            {'type':'!gh', 'engine': 'https://github.com/search?q='},
+            {'type':'!m', 'engine':'https://developer.mozilla.org/search?q='},
+            {'type':'!a', 'engine':'https://www.amazon.com/s?ie=UTF8&field-keywords='},
+            {'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='}
         ],
         input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),
@@ -175,9 +182,11 @@ function engines(){
                 if(document.getElementById(input.value) != null){
                     for(i = 0; i < footer.childNodes.length; i++){
                         footer.childNodes[i].classList.remove('red');
+                        input.classList.remove('red')
                     }
                     selected = engine.engine;
                     document.getElementById(input.value).classList.add('red');
+                    input.classList.add('red');
                 }
                 if(selected != '' && selected != undefined){
                     search_url = selected + input.value.replace(regex, '');
