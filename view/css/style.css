@@ -121,11 +121,11 @@ input[name="search"]{
     color: rgb(var(--white));
     box-shadow: inset 0px -10px 0px -8px rgba(255,255,255,1);
 }
-input[name="search"]::placeholder{
+input[name="search"]::placeholder, .todo_text::placeholder{
     transition: color 125ms linear;
     color: rgba(var(--white), .75);
 }
-input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder{
+input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder, .todo_text:focus::placeholder, .todo_text:hover::placeholder{
     color: rgba(var(--white), 1);
 }
 .searchegine{
