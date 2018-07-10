@@ -1,3 +1,10 @@
+/* 
+* Author: Peps
+* I have broken a lot of css rules in here
+*/
+
+
+
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 *, html, body{
     margin: 0;
@@ -34,8 +41,8 @@ body{
     left: 0%;
     z-index: -1;
     background-image: url('../imgs/background.jpg');
-    background-size: 25%;
-    filter: saturate(.25) opacity(.25) blur(.55px) contrast(.25);
+    background-size: 50%;
+    filter: saturate(.75) opacity(.15) blur(.55px) contrast(.25);
 }
 #loader{
     transition: opacity 250ms linear;
@@ -60,9 +67,12 @@ body{
 }
 .tabs{
     transition: letter-spacing 125ms var(--cruve_default), transform 150ms var(--cruve_default), color 125ms linear;
+    position: absolute;
+    right: 25%;
+    left: 25%;
+    text-align: center;
     transform-origin: 50%;
-    margin: 0 auto;
-    width: 25%;
+    width: 50%;
     cursor: pointer;
     letter-spacing: .25em;
 }
@@ -83,7 +93,8 @@ body{
     float: left;
 }
 .date{
-    float: right;
+    position: absolute;
+    right: 1em;
 }
 .day{
     color: var(--red);
@@ -140,15 +151,15 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 .panel{
     opacity: 0;
 }
-.hide{
-    display: none;
+.panels > .hide, .hide{
+    display: none !important;
 }
-.panels > .panel_animation_fwrd{
+.panels > .active{
     animation: side-bar 500ms cubic-bezier(1, 1.43, 0, 0.9);
     opacity: 1;
     display: block;
 }
-.panels > div:not(.panel_animation_fwrd){
+.panels > div:not(.active){
     opacity: 0;
 }
 .panels{
@@ -156,6 +167,11 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     height: 18em;
     padding: 0 5em;
 }
+
+.panel:nth-child(2){
+    display: flex;
+}
+
 .panels > div{
     transition: opacity 125ms linear, transform 1s cubic-bezier(1, 1.43, 0, 0.9);
     color: rgb(var(--white));
@@ -207,6 +223,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 }
 .list{
     height: 100%;
+    width: 50%;
 }
 .list > li{
     margin-left: 1em;
@@ -243,8 +260,35 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 .red{
     color: var(--red);
 }
+ul{
+    height: 100%;
+}
+.panel > ul:last-child{
+    display: table;
+}
+.panel > ul:last-child > li > a{
+    width: 100%;
+    text-align: right;
+    padding: 0 1em;
+}
+.panel > ul:last-child > li > span{
+    position: absolute;
+    transform: translateX(3.875em);
+}
+.panel > ul:last-child > li a:hover ~ span{
+    position: absolute;
+    transform: translateX(4em);
+}
 
 
+.title{
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    text-align: center;
+    letter-spacing: .25em;
+    font-weight: 100;
+}
 @media only screen and (max-width: 1073px){
     .panels > div:nth-child(1){
         background-size: auto 100%;

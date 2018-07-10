@@ -1,3 +1,5 @@
+
+// Once the page loads
 window.addEventListener('load', function(){
     const loader = document.getElementById('loader');
     dateclock();
@@ -7,18 +9,20 @@ window.addEventListener('load', function(){
     loader.style = 'opacity: 0;';
     setTimeout(function(){loader.style.display = 'none';}, 248)
 });
+
+// Event listener for the search engine to show up
 window.addEventListener('keyup', function(e){
     var input = document.querySelector('.searchegine');
     if(e.shiftKey == true && e.keyCode == 49){
         input.style = 'display: block;';
     }
     if(e.keyCode == 27){
-        console.log('fired');
         input.style = 'display: none;';
     }
 });
-function dateclock(){
-    
+
+// The date and clock at the top of the page
+function dateclock(){    
     var date = new Date(),
         shrtmon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // Short hand dates
         weekdays = ['Sun', 'Mon', 'Tue', 'Wen', 'Thur', 'Fri', 'Sat'], // Short hand days 
@@ -35,6 +39,8 @@ function dateclock(){
         dateclock()
     },1000); // Refresh after 1 second
 }
+
+// Timeout for adding the class 
 function display(i){
     setTimeout(function(){i.classList.add('hide')}, 250);
 }
@@ -43,44 +49,41 @@ function tabs(){
         updatestyle = document.getElementById('tabsupdate'),
         panels = document.querySelectorAll('.panel'),
         currtab = 0,i;
-    elem.addEventListener('click', function(e){
-        for(i = 0; i < panels.length; i++){
-            panels[i].classList.remove('panel_animation_fwrd');
-            display(panels[i]);
+    elem.addEventListener('click', function(e){ // The clickable icon in the top middle |
+        for(i = 0; i < panels.length; i++){ // Removes all the active tabs
+            panels[i].classList.remove('active');
+            display(panels[i]); //
         }
         currtab++;
         setTimeout(function(){
             if(currtab == 1){
                 updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
-                panels[1].classList.add('panel_animation_fwrd');
+                panels[1].classList.add('active');
                 panels[1].classList.remove('hide');
             }
             if(currtab == 2){
                 updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';
-                panels[2].classList.add('panel_animation_fwrd')
+                panels[2].classList.add('active')
                 panels[2].classList.remove('hide');
             }
             if(currtab >= 3){
                 currtab = 0;
                 updatestyle.innerHTML = '';
-                panels[0].classList.add('panel_animation_fwrd');
+                panels[0].classList.add('active');
                 panels[0].classList.remove('hide');
             }
-            console.log(currtab);
         }, 550);
     })
 }
 
 function tab_panels(){
     // First Panel -----
-    if(navigator.onLine){
-        weather_api();
-        setInterval(function(){
-            if(weather_api == 'ERROR'){
-                clearInterval();
-            }
-        }, 5000);   
-    }
+    weather_api();
+    setInterval(function(){
+        if(weather_api == 'ERROR'){
+            clearInterval();
+        }
+    }, 5000);   
     // Second Panel -----
 }
 function tab_ping(latency){
@@ -97,9 +100,14 @@ function tab_ping(latency){
     ping.childNodes[0].innerHTML = latency;
 }
 function weather_api(){
-    var result, weather, temp, date, request_time, response_time, latency, elem = document.querySelector('.weather');
+    var result, weather, temp, date, request_time, response_time, latency, elem = document.querySelector('.weather'),
+        offline = window.addEventListener('offline', function(e){return e.returnValue});
     date = new Date;
     request_time = date.getMilliseconds();
+    
+    if(offline){
+
+    }
     fetch('http://api.openweathermap.org/data/2.5/weather?q=Brisbane&appid=b4695753909b59fcd8fcbe66a2d9ed78')
     .then(function(res){
         if(res.status === 200){
@@ -161,7 +169,8 @@ function engines(){
             {'type':'!gh', 'engine': 'https://github.com/search?q='},
             {'type':'!m', 'engine':'https://developer.mozilla.org/search?q='},
             {'type':'!a', 'engine':'https://www.amazon.com/s?ie=UTF8&field-keywords='},
-            {'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='}
+            {'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='},
+            {'type':'!s', 'engine':'https://open.spotify.com/search/results/'}
         ],
         input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),
