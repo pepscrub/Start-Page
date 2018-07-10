@@ -84,7 +84,8 @@ function tab_panels(){
             clearInterval();
         }
     }, 5000);   
-    // Second Panel -----
+    todo();
+
 }
 function tab_ping(latency){
     var ping = document.querySelector('.ping'),
@@ -157,7 +158,15 @@ function weather_api(){
 
 
 function todo(){
-
+    const text = document.querySelector('.todo_text');
+    var item = localStorage.getItem('todo');
+    if(item != ''){
+        text.value = item;
+    }
+    text.addEventListener('keyup', function(e){
+        localStorage.clear();
+        localStorage.setItem('todo', text.value);
+    })
 }
 
 

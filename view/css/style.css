@@ -196,7 +196,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     background-blend-mode: soft-light;
     background-repeat: no-repeat;
     position: relative;
-    box-shadow: inset 5px 0px 0px 0px var(--cyan),  2.5px 2.5px 13px -1px rgba(0,0,0,0.25);
+    box-shadow: inset 5px 0px 0px 0px var(--red),  2.5px 2.5px 13px -1px rgba(0,0,0,0.25);
 }
 .panels > div:nth-child(3){
     background-image: url('../imgs/card8.gif');
@@ -205,7 +205,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     background-blend-mode: soft-light;
     background-repeat: no-repeat;
     position: relative;
-    box-shadow: inset 5px 0px 0px 0px rgb(var(--white)),  2.5px 2.5px 13px -1px rgba(0,0,0,0.25);
+    box-shadow: inset 5px 0px 0px 0px var(--red),  2.5px 2.5px 13px -1px rgba(0,0,0,0.25);
 }
 
 .weather{
@@ -289,6 +289,40 @@ ul{
     letter-spacing: .25em;
     font-weight: 100;
 }
+
+.todo_text{
+    transition: background-color 125ms linear;
+    border: none;
+    background: #00000000;
+    border-bottom-left-radius: 50px;
+    width: 100%;
+    outline: none;
+    height: 14.25em;
+    padding-left: 3em;
+    padding-top: 2em;
+    color: #fff;
+    resize: none;
+}
+.todo_text:hover{
+    background-color: #00000069;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: #00000018;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--red); 
+}
+
+
+
 @media only screen and (max-width: 1073px){
     .panels > div:nth-child(1){
         background-size: auto 100%;
