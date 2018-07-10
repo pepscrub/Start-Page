@@ -80,7 +80,7 @@ function tab_panels(){
     // First Panel -----
     weather_api();
     setInterval(function(){
-        if(weather_api == 'ERROR'){
+        if(weather_api() == 'ERROR'){
             clearInterval();
         }
     }, 5000);   
