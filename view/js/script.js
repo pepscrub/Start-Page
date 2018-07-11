@@ -1,4 +1,4 @@
-
+var fetch_error = undefined;
 // Once the page loads
 window.addEventListener('load', function(){
     const loader = document.getElementById('loader');
@@ -80,9 +80,13 @@ function tab_panels(){
     // First Panel -----
     weather_api();
     setInterval(function(){
-        if(weather_api() == 'ERROR'){
-            clearInterval();
+        if(fetch_error != undefined){
+            var weather = document.querySelector('.weather');
+                ping = document.querySelector('.ping');
+            weather.innerHTML = '<span class="red">'+fetch_error+'</span>';
+            ping.innerHTML = '<span class="red">NaN</span>';
         }
+        weather_api();
     }, 5000);   
     todo();
 
@@ -112,6 +116,7 @@ function weather_api(){
     fetch('http://api.openweathermap.org/data/2.5/weather?q=Brisbane&appid=b4695753909b59fcd8fcbe66a2d9ed78')
     .then(function(res){
         if(res.status === 200){
+            fetch_error = undefined;
             date = new Date;
             response_time = date.getMilliseconds();
             if(response_time > request_time){
@@ -146,13 +151,12 @@ function weather_api(){
             });
         }else{
             throw new Error('Something went wrong!');
-            return 'ERROR';
         }
     })
     .then(res => {
         console.debug(res);
       }).catch(error => {
-        console.error(error);
+          fetch_error = error;
       });
 }
 

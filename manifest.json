@@ -1,0 +1,14 @@
+{
+    "name": "Home Page",
+    "version": "1.0",
+    "description": "Queueing System Styling",
+    "icons":{
+        "256": "view/imgs/icon.png"
+    },
+    "chrome_url_overrides" : {
+        "newtab": "index.html"
+    },
+
+
+    "manifest_version": 2
+  }
