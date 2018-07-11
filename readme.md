@@ -1,6 +1,8 @@
 # Startup Page
 A browser startup page
 
+[Live Demo](https://www.brendan-freeman.com/homepage/)
+
 ### Setup
 Install it onto a local server and run it to test it out. 
 Here are some things to keep in mind while installing

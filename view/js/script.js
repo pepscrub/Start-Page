@@ -125,7 +125,7 @@ function weather_fetch(loc){
         offline = window.addEventListener('offline', function(e){return e.returnValue});
         date = new Date;
         request_time = date.getMilliseconds();
-    fetch('http://api.openweathermap.org/data/2.5/weather?q='+loc+'&appid=b4695753909b59fcd8fcbe66a2d9ed78')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+loc+'&appid=b4695753909b59fcd8fcbe66a2d9ed78')
     .then(function(res){
         if(res.status === 200){
             fetch_error = undefined;
