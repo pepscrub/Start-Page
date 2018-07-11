@@ -1,4 +1,5 @@
 var fetch_error = undefined;
+var loc = undefined;
 // Once the page loads
 window.addEventListener('load', function(){
     const loader = document.getElementById('loader');
@@ -78,7 +79,7 @@ function tabs(){
 
 function tab_panels(){
     // First Panel -----
-    weather_api();
+    weather_location();
     setInterval(function(){
         if(fetch_error != undefined){
             var weather = document.querySelector('.weather');
@@ -86,7 +87,7 @@ function tab_panels(){
             weather.innerHTML = '<span class="red">'+fetch_error+'</span>';
             ping.innerHTML = '<span class="red">NaN</span>';
         }
-        weather_api();
+        weather_fetch(loc);
     }, 5000);   
     todo();
 
@@ -104,25 +105,40 @@ function tab_ping(latency){
     ping = document.querySelector('.ping');
     ping.childNodes[0].innerHTML = latency;
 }
-function weather_api(){
+function weather_location(){
+    
+    fetch('https://geoip.nekudo.com/api')
+    .then(function(res){
+        if(res.status === 200){
+            res.json().then(function(res){
+                loc = res.city;
+                weather_fetch(loc);
+            })
+        }else{
+            throw new error('Something went wrong!');
+        }
+    })
+}
+
+function weather_fetch(loc){
     var result, weather, temp, date, request_time, response_time, latency, elem = document.querySelector('.weather'),
         offline = window.addEventListener('offline', function(e){return e.returnValue});
-    date = new Date;
-    request_time = date.getMilliseconds();
-    
-    if(offline){
-
-    }
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=Brisbane&appid=b4695753909b59fcd8fcbe66a2d9ed78')
+        date = new Date;
+        request_time = date.getMilliseconds();
+    fetch('http://api.openweathermap.org/data/2.5/weather?q='+loc+'&appid=b4695753909b59fcd8fcbe66a2d9ed78')
     .then(function(res){
         if(res.status === 200){
             fetch_error = undefined;
             date = new Date;
             response_time = date.getMilliseconds();
-            if(response_time > request_time){
-                latency = (response_time - request_time) / 4.5;
+            if(loc === 'Brisbane'){
+                if(response_time > request_time){
+                    latency = (response_time - request_time) / 4.5;
+                }else{
+                    latency = (request_time - response_time) / 4.5;
+                }
             }else{
-                latency = (request_time - response_time) / 4.5;
+                latency = response_time - request_time;
             }
             tab_ping(latency)
             res.json().then(function(result){
@@ -155,10 +171,12 @@ function weather_api(){
     })
     .then(res => {
         console.debug(res);
-      }).catch(error => {
+    }).catch(error => {
           fetch_error = error;
-      });
+    });
 }
+
+
 
 
 function todo(){
