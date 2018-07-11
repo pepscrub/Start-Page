@@ -163,6 +163,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     opacity: 0;
 }
 .panels{
+    transition: padding 275ms cubic-bezier(1, 1.43, 0, 0.9);
     margin-top: 8em;
     height: 18em;
     padding: 0 5em;
@@ -173,7 +174,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 }
 
 .panels > div{
-    transition: opacity 125ms linear, transform 1s cubic-bezier(1, 1.43, 0, 0.9);
+    transition: opacity 125ms linear, transform 1s cubic-bezier(1, 1.43, 0, 0.9), border-radius 250ms cubic-bezier(1, 1.43, 0, 0.9);
     color: rgb(var(--white));
     background-color: var(--navy);
     height: 100%;
@@ -283,8 +284,7 @@ ul{
 
 .title{
     position: absolute;
-    left: 40%;
-    right: 40%;
+    width: 100%;
     text-align: center;
     letter-spacing: .25em;
     font-weight: 100;
@@ -302,6 +302,7 @@ ul{
     padding-top: 2em;
     color: #fff;
     resize: none;
+    overflow-x: hidden;
 }
 .todo_text:hover{
     background-color: #00000069;
@@ -320,21 +321,38 @@ ul{
 ::-webkit-scrollbar-thumb {
     background: var(--red); 
 }
-
-
-
-@media only screen and (max-width: 1073px){
-    .panels > div:nth-child(1){
-        background-size: auto 100%;
-        background-position:  50%;
+@media only screen and (max-width: 1080px){
+    .panels > .panel{
+        border-radius: 0;
+    }
+    .panels{
+        padding: 0;
     }
 }
-@media only screen and (max-width: 1056px){
+@media only screen and (max-width: 816px){
+    .panels > div:nth-child(1){
+        background-size: auto 100%;
+    }
+}
+@media only screen and (max-width: 802px){
     .panels > div:nth-child(2){
         background-size: auto 100%;
     }
+    .todo_text{
+        padding-left: .25em;
+    }
+    .weather{
+        font-size: .75em;
+        top: -.125em;
+        width: 100%;
+        text-align: center;
+        right: 0em;
+    }
+    .title{
+        top: -1.5em;
+    }
 }
-@media only screen and (max-width: 980px){
+@media only screen and (max-width: 727px){
     .panels > div:nth-child(3){
         background-size: auto 100%;
     }

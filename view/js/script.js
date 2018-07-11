@@ -105,8 +105,7 @@ function tab_ping(latency){
     ping = document.querySelector('.ping');
     ping.childNodes[0].innerHTML = latency;
 }
-function weather_location(){
-    
+function weather_location(){ 
     fetch('https://geoip.nekudo.com/api')
     .then(function(res){
         if(res.status === 200){
