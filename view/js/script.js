@@ -50,6 +50,23 @@ function tabs(){
         updatestyle = document.getElementById('tabsupdate'),
         panels = document.querySelectorAll('.panel'),
         currtab = 0,i;
+        currtab = localStorage.getItem('activetab');
+    if(currtab == 1){
+        updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
+        panels[1].classList.add('active');
+        panels[1].classList.remove('hide');
+    }
+    if(currtab == 2){
+        updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';
+        panels[2].classList.add('active')
+        panels[2].classList.remove('hide');
+    }
+    if(currtab >= 3 || currtab == 0){
+        currtab = 0;
+        updatestyle.innerHTML = '';
+        panels[0].classList.add('active');
+        panels[0].classList.remove('hide');
+    }
     elem.addEventListener('click', function(e){ // The clickable icon in the top middle |
         for(i = 0; i < panels.length; i++){ // Removes all the active tabs
             panels[i].classList.remove('active');
@@ -73,6 +90,8 @@ function tabs(){
                 panels[0].classList.add('active');
                 panels[0].classList.remove('hide');
             }
+            localStorage.setItem('activetab', currtab);
+            console.log(currtab);
         }, 550);
     })
 }
@@ -200,7 +219,9 @@ function engines(){
             {'type':'!m', 'engine':'https://developer.mozilla.org/search?q='},
             {'type':'!a', 'engine':'https://www.amazon.com/s?ie=UTF8&field-keywords='},
             {'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='},
-            {'type':'!s', 'engine':'https://open.spotify.com/search/results/'}
+            {'type':'!s', 'engine':'https://open.spotify.com/search/results/'},
+            {'type':'!sc', 'engine':'https://soundcloud.com/search?q='},
+            {'type':'!t', 'engine':'https://www.tumblr.com/search/'}
         ],
         input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),

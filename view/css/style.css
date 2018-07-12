@@ -328,6 +328,9 @@ ul{
     .panels{
         padding: 0;
     }
+    .todo_text{
+        padding-left: .25em;
+    }
 }
 @media only screen and (max-width: 816px){
     .panels > div:nth-child(1){
@@ -337,9 +340,6 @@ ul{
 @media only screen and (max-width: 802px){
     .panels > div:nth-child(2){
         background-size: auto 100%;
-    }
-    .todo_text{
-        padding-left: .25em;
     }
     .weather{
         font-size: .75em;
