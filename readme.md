@@ -5,10 +5,11 @@ A browser startup page
 
 ### Setup
 Install it onto a local server and run it to test it out. 
-Here are some things to keep in mind while installing
+Here are some things to keep in mind.
 * The Latency (if not in brisbane) is to an american server
 * To open the search options you must do SHIFT+1
 * The todo will remember what you said inbetween tabs and the browser closing
+* Double clicking a panel will show a color picker that changes the accents on the page
 
 If you're loading this as a chrome extension
 * Goto *chrome://extensions/*

@@ -49,11 +49,26 @@ function tabs(){
     var elem = document.querySelector('.tabs'),
         updatestyle = document.getElementById('tabsupdate'),
         panels = document.querySelectorAll('.panel'),
-        currtab,i;
+        color = document.getElementById('color'),
+        colorupdate = document.getElementById('colorupdate'),
+        currtab,i,currcolor, styleelem, styletext;
+        currcolor = localStorage.getItem('color') ? localStorage.getItem('color') : '#f1355a';
         currtab = localStorage.getItem('activetab') ? localStorage.getItem('activetab') : localStorage.setItem('activetab', 0); // If ther isn't any local storage set, this sets it
+
+        // Color Customization
+        colorupdate.innerHTML = ':root{--red: ' +currcolor + ' !important;}';
+        color.value = currcolor;
+
+
+        color.addEventListener('input', function(){
+            localStorage.setItem('color', color.value);
+            colorupdate.innerHTML = ':root{--red: ' + color.value + ' !important;}';
+        }, false)
+    
     if(currtab == undefined){ // Fallback since localstorage can still execute while the rest of the code executes
         currtab = 0;
-    }if(currtab == 1){
+    }
+    if(currtab == 1){
         updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
         panels[1].classList.add('active');
         panels[1].classList.remove('hide');
@@ -95,6 +110,12 @@ function tabs(){
             localStorage.setItem('activetab', currtab);
         }, 550);
     })
+    for(i = 0; i < panels.length; i++){
+        panels[i].addEventListener('dblclick', function(e){
+            color.focus();
+            color.click();
+        })
+    }
 }
 
 function tab_panels(){

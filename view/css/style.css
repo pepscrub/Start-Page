@@ -321,15 +321,17 @@ ul{
 ::-webkit-scrollbar-thumb {
     background: var(--red); 
 }
+#color{
+    position: absolute;
+    left: -100em;
+}
+
 @media only screen and (max-width: 1080px){
     .panels > .panel{
         border-radius: 0;
     }
     .panels{
         padding: 0;
-    }
-    .todo_text{
-        padding-left: .25em;
     }
 }
 @media only screen and (max-width: 816px){
@@ -340,6 +342,9 @@ ul{
 @media only screen and (max-width: 802px){
     .panels > div:nth-child(2){
         background-size: auto 100%;
+    }
+    .todo_text{
+        padding-left: .25em;
     }
     .weather{
         font-size: .75em;
