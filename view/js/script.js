@@ -49,9 +49,11 @@ function tabs(){
     var elem = document.querySelector('.tabs'),
         updatestyle = document.getElementById('tabsupdate'),
         panels = document.querySelectorAll('.panel'),
-        currtab = 0,i;
-        currtab = localStorage.getItem('activetab');
-    if(currtab == 1){
+        currtab,i;
+        currtab = localStorage.getItem('activetab') ? localStorage.getItem('activetab') : localStorage.setItem('activetab', 0); // If ther isn't any local storage set, this sets it
+    if(currtab == undefined){ // Fallback since localstorage can still execute while the rest of the code executes
+        currtab = 0;
+    }if(currtab == 1){
         updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
         panels[1].classList.add('active');
         panels[1].classList.remove('hide');
