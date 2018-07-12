@@ -91,7 +91,6 @@ function tabs(){
                 panels[0].classList.remove('hide');
             }
             localStorage.setItem('activetab', currtab);
-            console.log(currtab);
         }, 550);
     })
 }
