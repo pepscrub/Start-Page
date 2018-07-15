@@ -205,8 +205,10 @@ function weather_fetch(loc){
                 }
                 elem.innerHTML = icon+'<span class="red">'+temp+'</span>\xB0C '+weather.description
             });
+        }else if(res.status === 404){
+            elem.innerHTML = 'Unable to <span class="red">connect</span>';
         }else{
-            throw new Error('Something went wrong!');
+            throw new Error('Something went wrong!' + res.status);
         }
     })
     .then(res => {

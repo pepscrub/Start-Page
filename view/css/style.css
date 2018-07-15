@@ -325,7 +325,20 @@ ul{
     position: absolute;
     left: -100em;
 }
-
+#store{
+    transition: color 125ms linear;
+    position: absolute;
+    font-size: 2em;
+    bottom: 1em;
+    right: 1em;
+    color: #ffffff50;
+}
+#store:hover{
+    color: #ffffff9f;
+}
+#store:active{
+    color: #fff;
+}
 @media only screen and (max-width: 1080px){
     .panels > .panel{
         border-radius: 0;
