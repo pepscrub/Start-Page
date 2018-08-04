@@ -135,7 +135,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0000007c;
+    background-color: #000000e0;
 }
 .engines{
     display: flex;
