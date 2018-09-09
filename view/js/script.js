@@ -2,6 +2,10 @@ var fetch_error = undefined;
 var loc = undefined;
 // Once the page loads
 window.addEventListener('load', function(){
+    var defaults = [{'type':'!g','engine': 'https://www.google.com/search?q='},{'type':'!b','engine': 'https://www.bing.com/search?q='},{'type':'!yt','engine': 'https://www.youtube.com/results?search_query='},{'type':'!gh', 'engine': 'https://github.com/search?q='},{'type':'!m', 'engine':'https://developer.mozilla.org/search?q='},{'type':'!a', 'engine':'https://www.amazon.com/s?ie=UTF8&field-keywords='},{'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='},{'type':'!s', 'engine':'https://open.spotify.com/search/results/'},{'type':'!sc', 'engine':'https://soundcloud.com/search?q='},{'type':'!t', 'engine':'https://www.tumblr.com/search/'}],
+        engine = localStorage.getItem('engine') ? JSON.parse(localStorage.getItem('engine')) : localStorage.setItem('engine', JSON.stringify(defaults));
+
+        console.log(engine);
     const loader = document.getElementById('loader');
     dateclock();
     tabs();
@@ -13,14 +17,105 @@ window.addEventListener('load', function(){
 
 // Event listener for the search engine to show up
 window.addEventListener('keyup', function(e){
-    var input = document.querySelector('.searchegine');
+    var input = document.querySelector('.searchengine'),
+        textarea = document.querySelector('[name=search]');
+        engineScreen = document.querySelector('.engineAdd');
     if(e.shiftKey == true && e.keyCode == 49){
         input.style = 'display: block;';
+        textarea.focus();
     }
+
+    if(e.shiftKey == true && e.keyCode == 50){
+        engineScreen.style = 'display: block;';
+    }
+
     if(e.keyCode == 27){
         input.style = 'display: none;';
+        engineScreen.style = 'display: none;';
     }
 });
+window.addEventListener('click', (e) =>{
+    let input = document.querySelector('.searchengine'),
+        search_btn = document.querySelector('#search'),
+        engineAdd = document.querySelector('.buttonEngine'),
+        btnAdd = document.querySelector('.btn-add'),
+        textarea = document.querySelector('[name=search]'),
+        btnExit = document.querySelector('.buttonExit'),
+        engineDone = document.querySelector('.buttonComplete'),
+        engineScreen = document.querySelector('.engineAdd');
+    let empty = 1;
+    if(input == e.target){
+        input.style = 'display: none;';
+    }
+    if(search_btn == e.target || search_btn == e.path[1]){ // If the user clicks on the button or the icon
+        input.style = 'display: block;';
+        textarea.focus();
+    }
+    if(btnAdd == e.target || btnAdd == e.path[1]){
+        engineScreen.style = 'display: block';
+    }
+    if(engineScreen == e.target || btnExit == e.target || btnExit == e.path[1]){
+        engineScreen.style = 'display: none;';
+    }
+    if(engineAdd == e.target || engineAdd == e.path[1]){
+        let amount = (document.querySelector('#engines').childNodes.length - 1) / 2;
+        for(i = 1; i < document.querySelector('#engines').childNodes.length; i++){
+            if(document.querySelector('#engines').childNodes[i].value === ''){
+                empty++;
+            }
+        }
+        console.log(empty);
+        if(amount <= 14 && empty < 2){
+            textinput1 = document.createElement('input')
+            textinput1.setAttribute('type', 'text')
+            textinput1.setAttribute('class', 'inputengine')
+            textinput2 = document.createElement('input');
+            textinput2.setAttribute('type', 'text');
+            textinput2.setAttribute('class', 'inputtype');
+            document.getElementById('engines').appendChild(textinput2);
+            document.getElementById('engines').appendChild(textinput1);
+        }
+    }
+    console.log(e.path[1]);
+    console.log(engineDone);
+    if(engineDone == e.target || engineDone == e.path[1]){
+        console.log('fired');
+        let sanitize = true,
+            form = document.querySelector('#engines').childNodes
+            arr = [];
+        for(i = 1; i < form.length; i++){
+            if(form[i].value === ''){
+                sanitize = false;
+                form[i].setAttribute('placeholder', 'Please fill out this field')
+                form[i].focus();
+            }else{
+                sanitize = true;
+            }
+        }
+        if(sanitize){
+            let count = 0, i = 1, tmpString = `[`;
+            form.forEach((res)=>{
+                if(i % 2){
+                    tmpString += `{"type": "${res.value}",`
+                }else{
+                    tmpString += `"engine": "${res.value}"},`
+                }
+                i++;
+                console.log(i);
+            })
+            tmpString = tmpString.replace(/,$/, ']'); // Removes the , at the end of the string if the foreach fails to
+            localStorage.removeItem('engine');
+            localStorage.setItem('engine', tmpString);
+            engineScreen.style = 'display: none;';
+        }
+        let footer = document.querySelector('.engines');
+        footer.innerHTML = '';
+        engines();
+    }
+})
+
+
+
 
 // The date and clock at the top of the page
 function dateclock(){    
@@ -59,6 +154,9 @@ function tabs(){
         colorupdate.innerHTML = ':root{--red: ' +currcolor + ' !important;}';
         color.value = currcolor;
 
+        color.addEventListener('', (res)=>{
+            console.log(res);
+        })
 
         color.addEventListener('input', function(){
             localStorage.setItem('color', color.value);
@@ -122,13 +220,18 @@ function tab_panels(){
     // First Panel -----
     weather_location();
     setInterval(function(){
+        var weather = document.querySelector('.weather');
+            ping = document.querySelector('.ping');
         if(fetch_error != undefined){
-            var weather = document.querySelector('.weather');
-                ping = document.querySelector('.ping');
-            weather.innerHTML = '<span class="red">'+fetch_error+'</span>';
-            ping.innerHTML = '<span class="red">NaN</span>';
+            weather.innerHTML = `<span class="red">Error: </span>${fetch_error}`;
+            ping.innerHTML = '<span class="red">Error:</span>Failed to connect';
+        }else{
+            if(loc){
+                weather_fetch(loc);
+            }else{
+                weather_location()
+            }
         }
-        weather_fetch(loc);
     }, 5000);   
     todo();
 
@@ -137,73 +240,106 @@ function tab_ping(latency){
     var ping = document.querySelector('.ping'),
         oldping,newping, i, pingchart, temp, icon;
     latency = Math.round(latency);
-    oldping = ping.childNodes[0].innerHTML;
+    oldping = ping.innerHTML;
     newping = latency;
     if(oldping != newping){
         ping.childNodes[0].style = 'animation: opacity 500ms linear';
-        setTimeout(function(){ping.childNodes[0].style = '';}, 500);
+        setTimeout(function(){ping.style = '';}, 500);
     }
-    ping = document.querySelector('.ping');
-    ping.childNodes[0].innerHTML = latency;
+    ping.innerHTML = `${latency}<span class="red">ms</spanclass>`;
 }
 function weather_location(){ 
-    fetch('https://geoip.nekudo.com/api')
-    .then(function(res){
-        if(res.status === 200){
-            res.json().then(function(res){
-                loc = res.city;
-                weather_fetch(loc);
+    if("geolocation" in navigator){
+        navigator.geolocation.getCurrentPosition((pos)=>{
+            let request_time = new Date().getMilliseconds();
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=b4695753909b59fcd8fcbe66a2d9ed78`)
+            .then((res)=>{
+                if(res.status != 200) throw Error(`Unable to connect`);
+                res.json().then((resJson)=>{
+                    weather_display(resJson, request_time);
+                })
             })
-        }else{
-            throw new error('Something went wrong!');
+        })
+    }else{
+        fetch('https://geoip.nekudo.com/api')
+        .then(function(res){
+            if(res.status === 200){
+                res.json().then(function(res){
+                    loc = res.city;
+                    weather_fetch(loc, 0);
+                })
+            }else{
+                throw new error('Something went wrong!');
+            }
+        })
+        .catch((err) =>{
+            fetch_error = 'a error occured';
+        })
+    }
+    navigator.geolocation.watchPosition((pos)=>{
+
+    },
+    (err)=>{
+        if(err.code === err.PERMISSION_DENIED){ // If the user denies GEOLOCATION
+            let request_time = new Date().getMilliseconds();
+            fetch('https://geoip.nekudo.com/api')
+            .then(function(res){
+                if(res.status === 200){
+                    res.json().then(function(res){
+                        loc = res.city;
+                        weather_fetch(loc, request_time);
+                    })
+                }else{
+                    throw new error('Something went wrong!');
+                }
+            })
+            .catch((err) =>{
+                fetch_error = 'a error occured';
+            })
         }
     })
 }
 
-function weather_fetch(loc){
-    var result, weather, temp, date, request_time, response_time, latency, elem = document.querySelector('.weather'),
-        offline = window.addEventListener('offline', function(e){return e.returnValue});
-        date = new Date;
-        request_time = date.getMilliseconds();
+
+weather_display = (result, request) =>{
+    let weather, temp, date, request_time, response_time, latency, elem = document.querySelector('.weather');
+    date = new Date;
+    if(latency != 0) request_time = request;
+    response_time = date.getMilliseconds();
+    latency = response_time > request_time ? response_time - request_time : request_time - response_time;
+    tab_ping(latency)
+    switch(temp=Math.round(result.main.temp-273.15), (weather=result.weather[0]).icon) {
+        case"01n": icon='<i class="fas fa-moon"></i>';
+        break;
+        case"01d": icon='<i class="fas fa-sun"></i>';
+        break;
+        case"02n": case"02d": icon='<i class="fas fa-cloud"></i>';
+        break;
+        case"03n": case"03d": icon='<i class="fas fa-cloud"></i>';
+        break;
+        case"04n": case"04d": icon='<i class="fas fa-cloud"></i>';
+        break;
+        case"09n": case"09d": icon='<i class="fas fa-tint"></i>';
+        break;
+        case"10n": case"10d": icon='<i class="fas fa-tint"></i>';
+        break;
+        case"11n": case"11d": icon='<i class="fas fa-bolt"></i>';
+        break;
+        case"13n": case"13d": icon='<i class="far fa-snowflake"></i>';
+        break;
+        case"50n": case"50d": icon='<i class="fas fa-eye-slash"></i>'
+    }
+    elem.innerHTML = icon+'<span class="red">'+temp+'</span>\xB0C '+weather.description;
+}
+
+function weather_fetch(loc, ping){
+    let latency = ping ? ping : new Date().getMilliseconds();
     fetch('https://api.openweathermap.org/data/2.5/weather?q='+loc+'&appid=b4695753909b59fcd8fcbe66a2d9ed78')
     .then(function(res){
         if(res.status === 200){
             fetch_error = undefined;
-            date = new Date;
-            response_time = date.getMilliseconds();
-            if(loc === 'Brisbane'){
-                if(response_time > request_time){
-                    latency = (response_time - request_time) / 4.5;
-                }else{
-                    latency = (request_time - response_time) / 4.5;
-                }
-            }else{
-                latency = response_time - request_time;
-            }
-            tab_ping(latency)
             res.json().then(function(result){
-                switch(temp=Math.round(result.main.temp-273.15), (weather=result.weather[0]).icon) {
-                    case"01n": icon='<i class="fas fa-moon"></i>';
-                    break;
-                    case"01d": icon='<i class="fas fa-sun"></i>';
-                    break;
-                    case"02n": case"02d": icon='<i class="fas fa-cloud"></i>';
-                    break;
-                    case"03n": case"03d": icon='<i class="fas fa-cloud"></i>';
-                    break;
-                    case"04n": case"04d": icon='<i class="fas fa-cloud"></i>';
-                    break;
-                    case"09n": case"09d": icon='<i class="fas fa-tint"></i>';
-                    break;
-                    case"10n": case"10d": icon='<i class="fas fa-tint"></i>';
-                    break;
-                    case"11n": case"11d": icon='<i class="fas fa-bolt"></i>';
-                    break;
-                    case"13n": case"13d": icon='<i class="far fa-snowflake"></i>';
-                    break;
-                    case"50n": case"50d": icon='<i class="fas fa-eye-slash"></i>'
-                }
-                elem.innerHTML = icon+'<span class="red">'+temp+'</span>\xB0C '+weather.description
+                weather_display(result, latency);
             });
         }else if(res.status === 404){
             elem.innerHTML = 'Unable to <span class="red">connect</span>';
@@ -214,7 +350,7 @@ function weather_fetch(loc){
     .then(res => {
         console.debug(res);
     }).catch(error => {
-          fetch_error = error;
+          fetch_error = 'Unable to get weather';
     });
 }
 
@@ -228,30 +364,31 @@ function todo(){
         text.value = item;
     }
     text.addEventListener('keyup', function(e){
-        localStorage.clear();
+        localStorage.removeItem('todo');
         localStorage.setItem('todo', text.value);
     })
 }
 
 
 function engines(){
-    var engines = [
-            {'type':'!g','engine': 'https://www.google.com/search?q='},
-            {'type':'!b','engine': 'https://www.bing.com/search?q='},
-            {'type':'!yt','engine': 'https://www.youtube.com/results?search_query='},
-            {'type':'!gh', 'engine': 'https://github.com/search?q='},
-            {'type':'!m', 'engine':'https://developer.mozilla.org/search?q='},
-            {'type':'!a', 'engine':'https://www.amazon.com/s?ie=UTF8&field-keywords='},
-            {'type':'!e', 'engine':'https://www.ebay.com/sch/i.html?_nkw='},
-            {'type':'!s', 'engine':'https://open.spotify.com/search/results/'},
-            {'type':'!sc', 'engine':'https://soundcloud.com/search?q='},
-            {'type':'!t', 'engine':'https://www.tumblr.com/search/'}
-        ],
-        input = document.querySelector('input[name="search"]'),
+    var input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),
-        li,item,node,regex,highlight,i,selected, search_url;
-    
+        li,item,node,regex,highlight,i,selected, search_url,
+        engines = JSON.parse(localStorage.getItem('engine'));
     engines.forEach(function(engine){
+        // Adding all the inputs for the add search engines screen
+        textinput1 = document.createElement('input')
+        textinput1.setAttribute('type', 'text')
+        textinput1.setAttribute('value', engine.engine);
+        textinput1.setAttribute('class', 'inputengine')
+        textinput2 = document.createElement('input');
+        textinput2.setAttribute('type', 'text');
+        textinput2.setAttribute('value', engine.type);
+        textinput2.setAttribute('class', 'inputtype');
+
+        document.getElementById('engines').appendChild(textinput2);
+        document.getElementById('engines').appendChild(textinput1);
+
         li = document.createElement('li');
         item = document.createTextNode(engine.type);
         li.appendChild(item);

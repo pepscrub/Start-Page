@@ -105,12 +105,15 @@ body{
 .min{
     color: rgba(var(--white), 0.75);
 }
-.centeredcard{
+.centeredcard,.centeredcard2{
     position: fixed;
     top: 30%;
     width: 95%;
     left: 2.5%;
     right: 2.5%;
+}
+.centeredcard2{
+    top: 5%;
 }
 input[name="search"]{
     transition: color 125ms ease-in-out;
@@ -128,7 +131,85 @@ input[name="search"]::placeholder, .todo_text::placeholder{
 input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder, .todo_text:focus::placeholder, .todo_text:hover::placeholder{
     color: rgba(var(--white), 1);
 }
-.searchegine{
+.centeredcard2 > h1{
+    color: var(--red);
+    text-align: center;
+}
+
+.inputtype, .inputengine{
+    transition: color 125ms linear, border-bottom 150ms linear;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: white solid 1px;
+    outline: none;
+}
+.inputtype{
+    width: 10%;
+    margin-right: 5%;
+}
+.inputtype:hover, .inputengine:hover, .inputtype:focus, .inputengine:focus{
+    color: var(--red);
+    border-bottom: 1px solid var(--red);
+}
+.inputengine{
+    width: 85%;
+}
+.btn-add{
+    transition: color 125ms linear;
+    position: fixed;
+    color: white;
+    right: 1.25%;
+    margin-top: -1.099em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.btn-add:hover{
+    color: var(--red)
+}
+
+.buttonEngine{
+    transition: transform 150ms cubic-bezier(0.8, 1.8, 0, 0.73), color 125ms linear;
+    color: #ffffff7c;
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    transform: rotate(0deg)scale(1);
+    cursor: pointer;
+}
+.buttonEngine:hover{
+    color: #fff;
+    transform: rotate(180deg);
+}
+.buttonEngine:active{
+    transform: rotate(180deg)scale(.95);
+}
+
+.buttonComplete, .buttonExit{
+    transition: color 125ms linear;
+    color: white;
+    position: fixed;
+    right: 7%;
+    font-size: 1.15em;
+    bottom: 13.75%;
+    font-size: 1em;
+    bottom: 14%;
+    right: 2.5%;
+    cursor: pointer;
+}
+
+.buttonExit{
+    right: 7%;
+    font-size: .95em;
+    bottom: 14%;
+}
+
+.buttonComplete:hover, .buttonExit:hover{
+    color: var(--red);
+}
+
+.searchengine, .engineAdd{
     animation: opacity 125ms linear;
     position: fixed;
     top: 0;
@@ -137,6 +218,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     height: 100%;
     background-color: #000000e0;
 }
+
 .engines{
     display: flex;
     color: rgba(var(--white), 0.65);
@@ -166,7 +248,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     transition: padding 275ms cubic-bezier(1, 1.43, 0, 0.9);
     margin-top: 8em;
     height: 18em;
-    padding: 0 5em;
+    padding: 0 1.5em;
 }
 
 .panel:nth-child(2){
@@ -241,6 +323,10 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 .list > li > a:hover ~ span{
     opacity: 1;
     transform: translateX(0px);
+}
+
+.list > li > a ~ span{
+    user-select: none;
 }
 
 .list > li > a, .list > li > a > i{
@@ -325,7 +411,7 @@ ul{
     position: absolute;
     left: -100em;
 }
-#store{
+#store, #search{
     transition: color 125ms linear;
     position: absolute;
     font-size: 2em;
@@ -333,18 +419,33 @@ ul{
     right: 1em;
     color: #ffffff50;
 }
-#store:hover{
+#search{
+    right: 3em;
+    cursor: pointer;
+}
+#store:hover, #search:hover{
     color: #ffffff9f;
 }
-#store:active{
+#store:active, #search:active{
     color: #fff;
 }
+
 @media only screen and (max-width: 1080px){
     .panels > .panel{
         border-radius: 0;
     }
     .panels{
         padding: 0;
+    }
+    .weather{
+        font-size: .75em;
+        top: -.125em;
+        width: 100%;
+        text-align: center;
+        right: 0em;
+    }
+    .title{
+        top: -1.5em;
     }
 }
 @media only screen and (max-width: 816px){
@@ -358,16 +459,6 @@ ul{
     }
     .todo_text{
         padding-left: .25em;
-    }
-    .weather{
-        font-size: .75em;
-        top: -.125em;
-        width: 100%;
-        text-align: center;
-        right: 0em;
-    }
-    .title{
-        top: -1.5em;
     }
 }
 @media only screen and (max-width: 727px){

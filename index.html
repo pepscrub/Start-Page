@@ -43,7 +43,7 @@
                             <span> Spotify</span>
                         </li>
                     </ul>
-                    <div class="ping"><span class="red">0</span>ms</div>
+                    <div class="ping" title="Your current latency between you and a server hosted in USA"><span class="red"></span></div>
                 </div>
                 <div class="panel hide">
                     <h1 class="title">Boards</h1>
@@ -81,18 +81,29 @@
                     <textarea class="todo_text" placeholder="Is there something to do?..."></textarea>
                 </div>
             </div>
-            <div class="searchegine" style="display: none;">
+            <div class="searchengine" style="display: none;">
                 <div class="centeredcard">
                     <div class="formelem">
                         <input name="search" type="text" placeholder="Search" autocomplete="off" autofocus>
+                        <a class="btn-add"><i class="fas fa-plus-circle"></i></a>
                     </div>
                     <div class="searchfooter">
                         <ul class="engines"></ul>
                     </div>
                 </div>
             </div>
+            <div class="engineAdd" style="display: none;">
+                <div class="centeredcard2">
+                    <h1>Search Engines</h1>
+                    <a class="buttonEngine"><i class="fas fa-plus"></i></a>
+                    <div class="formelem" id="engines"></div>
+                    <a class="buttonExit"><i class="fas fa-times"></i></a>
+                    <a class="buttonComplete"><i class="fas fa-check"></i></a>
+                </div>
+            </div>
         </main>
         <div id="background"></div>
+        <a id="search"><i class="fas fa-search"></i></a>
         <a id="store" href="https://chrome.google.com/webstore/category/extensions"><i class="fas fa-th-large"></i></a>
         <input type="color" id="color">
     </body>
