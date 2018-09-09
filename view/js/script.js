@@ -75,6 +75,12 @@ window.addEventListener('click', (e) =>{
         }
         console.log(empty);
         if(amount <= 14 && empty < 2){
+            let icon,btn;
+            icon = document.createElement('i');
+            btn = document.createElement('a');
+            btn.setAttribute('class', 'deleteParent');
+            icon.setAttribute('class', 'fas fa-times btnDelete');
+            btn.appendChild(icon);
             divelem = document.createElement('div');
             divelem.setAttribute('class', 'engineParentNode');
             textinput1 = document.createElement('input')
@@ -85,6 +91,7 @@ window.addEventListener('click', (e) =>{
             textinput2.setAttribute('class', 'inputtype');
             divelem.appendChild(textinput2);
             divelem.appendChild(textinput1);
+            divelem.appendChild(btn);
             document.getElementById('engines').appendChild(divelem);
         }
     }
