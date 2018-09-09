@@ -19,6 +19,7 @@ Future possible features
 What's new?
 * Added a button to access the the search bar
 * Added the ability to modify and add new engines to the search engines for the search bar
+* Added the ability to change the prefix to search for engines
 * Added a new short cut SHIFT+2 will now open the Engine list, which is also accessiable from the search screen.
 * Added geolocation related data for weather api connections
 * Fixed small scripting error where it would remove all localstorage data on updating 
