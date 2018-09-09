@@ -3,7 +3,8 @@
     "version": "1.0",
     "description": "Replaces the default home page with a customized page.",
     "icons":{
-        "256": "view/imgs/icon.png"
+        "256": "view/imgs/icon.png",
+        "128": "view/imgs/icon128.png"
     },
     "chrome_url_overrides" : {
         "newtab": "index.html"

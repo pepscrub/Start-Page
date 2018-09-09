@@ -153,7 +153,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     border-bottom: 1px solid var(--red);
 }
 .inputengine{
-    width: 85%;
+    width: 82.5%;
 }
 .btn-add{
     transition: color 125ms linear;
@@ -203,6 +203,20 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     right: 7%;
     font-size: .95em;
     bottom: 14%;
+}
+
+.btnDelete{
+    transition: color 125ms linear;
+    color: #ffffff75;
+    position: fixed;
+    font-size: .75em;
+    right: 2.5%;
+    margin-top: .35em;
+    cursor: pointer;
+}
+
+.btnDelete:hover{
+    color: #ffffffc7;
 }
 
 .buttonComplete:hover, .buttonExit:hover{

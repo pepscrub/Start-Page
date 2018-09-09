@@ -10,7 +10,7 @@ window.addEventListener('load', function(){
     dateclock();
     tabs();
     tab_panels();
-    engines();
+    engineFunc();
     loader.style = 'opacity: 0;';
     setTimeout(function(){loader.style.display = 'none';}, 248)
 });
@@ -41,9 +41,16 @@ window.addEventListener('click', (e) =>{
         btnAdd = document.querySelector('.btn-add'),
         textarea = document.querySelector('[name=search]'),
         btnExit = document.querySelector('.buttonExit'),
+        btnDelete = document.querySelectorAll('.btnDelete'),
         engineDone = document.querySelector('.buttonComplete'),
         engineScreen = document.querySelector('.engineAdd');
     let empty = 1;
+    for(i = 0; i < btnDelete.length; i++){
+        if(btnDelete[i] == e.target || btnDelete[i] == e.path[1]){
+            e.target.parentElement.parentElement.remove();
+        }
+    }
+
     if(input == e.target){
         input.style = 'display: none;';
     }
@@ -60,57 +67,60 @@ window.addEventListener('click', (e) =>{
     if(engineAdd == e.target || engineAdd == e.path[1]){
         let amount = (document.querySelector('#engines').childNodes.length - 1) / 2;
         for(i = 1; i < document.querySelector('#engines').childNodes.length; i++){
-            if(document.querySelector('#engines').childNodes[i].value === ''){
-                empty++;
+            for(l = 0; l < document.querySelector('#engines').childNodes[i].childNodes.length; l++){
+                if(document.querySelector('#engines').childNodes[i].childNodes[l].value === ''){
+                    empty++;
+                }
             }
         }
         console.log(empty);
         if(amount <= 14 && empty < 2){
+            divelem = document.createElement('div');
+            divelem.setAttribute('class', 'engineParentNode');
             textinput1 = document.createElement('input')
             textinput1.setAttribute('type', 'text')
             textinput1.setAttribute('class', 'inputengine')
             textinput2 = document.createElement('input');
             textinput2.setAttribute('type', 'text');
             textinput2.setAttribute('class', 'inputtype');
-            document.getElementById('engines').appendChild(textinput2);
-            document.getElementById('engines').appendChild(textinput1);
+            divelem.appendChild(textinput2);
+            divelem.appendChild(textinput1);
+            document.getElementById('engines').appendChild(divelem);
         }
     }
-    console.log(e.path[1]);
-    console.log(engineDone);
     if(engineDone == e.target || engineDone == e.path[1]){
-        console.log('fired');
         let sanitize = true,
-            form = document.querySelector('#engines').childNodes
+            tmp = document.querySelector('#engines').childNodes
             arr = [];
-        for(i = 1; i < form.length; i++){
-            if(form[i].value === ''){
-                sanitize = false;
-                form[i].setAttribute('placeholder', 'Please fill out this field')
-                form[i].focus();
-            }else{
-                sanitize = true;
+        for(i = 1; i < tmp.length; i++){
+            for(l = 0; l < tmp[i]; l++){
+                if(tmp[i].value === ''){
+                    sanitize = false;
+                    tmp[i][l].setAttribute('placeholder', 'Please fill out this field')
+                    tmp[i][l].focus();
+                }else{
+                    sanitize = true;
+                }
             }
         }
         if(sanitize){
             let count = 0, i = 1, tmpString = `[`;
-            form.forEach((res)=>{
-                if(i % 2){
-                    tmpString += `{"type": "${res.value}",`
-                }else{
-                    tmpString += `"engine": "${res.value}"},`
-                }
+            let tmpLoopItem
+            tmp.forEach((res)=>{
+                tmpString += `{"type": "${res.childNodes[0].value}",`
+                tmpString += `"engine": "${res.childNodes[1].value}"},`
                 i++;
-                console.log(i);
             })
             tmpString = tmpString.replace(/,$/, ']'); // Removes the , at the end of the string if the foreach fails to
+            console.log(tmpString);
             localStorage.removeItem('engine');
             localStorage.setItem('engine', tmpString);
             engineScreen.style = 'display: none;';
         }
         let footer = document.querySelector('.engines');
         footer.innerHTML = '';
-        engines();
+        document.querySelector('#engines').innerHTML = ''
+        engineFunc();
     }
 })
 
@@ -370,15 +380,22 @@ function todo(){
 }
 
 
-function engines(){
+function engineFunc(){
     var input = document.querySelector('input[name="search"]'),
         footer = document.querySelector('.engines'),
-        li,item,node,regex,highlight,i,selected, search_url,
+        li,item,node,regex,highlight,i,selected, search_url,divelem,btn,icon
         engines = JSON.parse(localStorage.getItem('engine'));
     engines.forEach(function(engine){
         // Adding all the inputs for the add search engines screen
-        textinput1 = document.createElement('input')
-        textinput1.setAttribute('type', 'text')
+        divelem = document.createElement('div');
+        divelem.setAttribute('class', 'engineParentNode');
+        icon = document.createElement('i');
+        btn = document.createElement('a');
+        btn.setAttribute('class', 'deleteParent');
+        icon.setAttribute('class', 'fas fa-times btnDelete');
+        btn.appendChild(icon);
+        textinput1 = document.createElement('input');
+        textinput1.setAttribute('type', 'text');
         textinput1.setAttribute('value', engine.engine);
         textinput1.setAttribute('class', 'inputengine')
         textinput2 = document.createElement('input');
@@ -386,8 +403,10 @@ function engines(){
         textinput2.setAttribute('value', engine.type);
         textinput2.setAttribute('class', 'inputtype');
 
-        document.getElementById('engines').appendChild(textinput2);
-        document.getElementById('engines').appendChild(textinput1);
+        divelem.appendChild(textinput2)
+        divelem.appendChild(textinput1)
+        divelem.appendChild(btn);
+        document.getElementById('engines').appendChild(divelem);
 
         li = document.createElement('li');
         item = document.createTextNode(engine.type);
