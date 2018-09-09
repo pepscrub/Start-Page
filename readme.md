@@ -1,25 +1,51 @@
-# Startup Page
-A browser startup page
+![demo](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/banner.png)
 
-[Live Demo](https://www.brendan-freeman.com/homepage/)
+Live [demo!](https://pepscrub.github.io/homepage/)
+# Features!
 
-Current list of features
-* Search bar with prefix's to access certain engines / sites
-* Todo textarea that saves through browser stops/starts
-* Ability to change the main accent color (Doubele click the main banner)
-* 3 Panel (Only 1 panel is displayed at a time) carousel
-* Ping display
-* Weather API display
-* Message boards
+  - Search bar
+  - 3 screen/panel design
+  - Todo list
+  - Current Weather
+  - Change main color (woah)
+  - Change Prefix's (double woah)
+  - Change search engines with vodo magic
 
-Future possible features
-* Ability to upload own background images
-* Ability to change message boards
+### Possible future features
+- Change boards on second panel
+- Revamp Todo to set dates on a calender
+- Proper color picker
+- Ability to change panel backgrounds and upload custom images
 
-What's new?
-* Added a button to access the the search bar
-* Added the ability to modify and add new engines to the search engines for the search bar
-* Added the ability to change the prefix to search for engines
-* Added a new short cut SHIFT+2 will now open the Engine list, which is also accessiable from the search screen.
-* Added geolocation related data for weather api connections
-* Fixed small scripting error where it would remove all localstorage data on updating 
+### Tech
+
+This startup is very complicated and requires a bunch of prerequisite porgrams and libarys:
+* **[vanilliaJS]** *(It's very resource heavy) insane*
+* **css** *Super advanced styling program*
+
+### Installation
+
+On chrome, it's very easy to add this package as an extention
+1) Download the startup page *(Extract the zip if you downloaded directly)*
+2) Go to your chrome extensions __chrome://extensions/__ or **⋮***>more tools > extensions*
+3) Enable developer mode *should be located in the top right of the extensions screen*
+4) Load unpacked
+5) Locate where you saved the startup page
+6) Fancy new start up page when you open a new tab
+
+### Screenshots
+
+![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/UI.jpg)
+![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/searchui.jpg)
+![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/searchenginesui.jpg)
+License
+----
+
+MIT
+
+
+**Free Software, Hell Yeah!**
+
+
+
+[vanilliaJS]: <http://vanilla-js.com/>
