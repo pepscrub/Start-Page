@@ -19,6 +19,7 @@ Live [demo!](https://pepscrub.github.io/homepage/)
   - Added event Listners to the arrow keys (You can now navigate through the boards via the arrow keys)
   - Added fadeout transition when closes the search screen and engine screen
   - Right click will no longer work unless you right click on a board
+  - Added ability to insert new ids via console
 
 ### Current bugs
   - When changing boards if your board matches another board it won't update but instead of targeting the board you modify first, it'll instead go to the match found. Current fix is to refresh the page.
@@ -38,7 +39,7 @@ This startup is very complicated and requires a bunch of prerequisite porgrams a
 
 On chrome, it's very easy to add this package as an extention
 1) Download the startup page *(Extract the zip if you downloaded directly)*
-2) Go to your chrome extensions __chrome://extensions/__ or **⋮***>more tools > extensions*
+2) Go to your chrome extensions __chrome://extensions/__ or **⋮**>*more tools* > *extensions*
 3) Enable developer mode *should be located in the top right of the extensions screen*
 4) Load unpacked
 5) Locate where you saved the startup page
@@ -49,6 +50,7 @@ On chrome, it's very easy to add this package as an extention
 ![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/UI.jpg)
 ![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/searchui.jpg)
 ![nan](https://raw.githubusercontent.com/pepscrub/Start-Page/master/view/imgs/github/searchenginesui.jpg)
+
 License
 ----
 
