@@ -224,6 +224,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 }
 
 .searchengine, .engineAdd{
+    transition: opacity 125ms linear;
     animation: opacity 125ms linear;
     position: fixed;
     top: 0;
@@ -394,7 +395,8 @@ ul{
     transition: background-color 125ms linear;
     border: none;
     background: #00000000;
-    border-bottom-left-radius: 50px;
+    border-top-left-radius: 55px;
+    border-bottom-left-radius: 55px;
     width: 100%;
     outline: none;
     height: 14.25em;
@@ -443,6 +445,23 @@ ul{
 #store:active, #search:active{
     color: #fff;
 }
+#menu{
+    position: absolute;
+    width: auto;
+    padding: .15em .25em;
+    color: white;
+    background-color: var(--navy);
+    
+}
+#menu > ul > li > input{
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    width: 15em;
+}
+
 
 @media only screen and (max-width: 1080px){
     .panels > .panel{

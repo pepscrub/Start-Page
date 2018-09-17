@@ -2,7 +2,9 @@
 
 Live [demo!](https://pepscrub.github.io/homepage/)
 # Features!
-
+*Newest first*
+  - Ability to change and modify boards
+  - Ability to add custom weatherAPI ids via console
   - Search bar
   - 3 screen/panel design
   - Todo list
@@ -11,8 +13,17 @@ Live [demo!](https://pepscrub.github.io/homepage/)
   - Change Prefix's (double woah)
   - Change search engines with vodo magic
 
+### Latest update
+  - Added the ability to change and modify boards 
+  - Cleaned up most of the Javascript
+  - Added event Listners to the arrow keys (You can now navigate through the boards via the arrow keys)
+  - Added fadeout transition when closes the search screen and engine screen
+  - Right click will no longer work unless you right click on a board
+
+### Current bugs
+  - When changing boards if your board matches another board it won't update but instead of targeting the board you modify first, it'll instead go to the match found. Current fix is to refresh the page.
+
 ### Possible future features
-- Change boards on second panel
 - Revamp Todo to set dates on a calender
 - Proper color picker
 - Ability to change panel backgrounds and upload custom images
