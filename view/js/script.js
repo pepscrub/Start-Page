@@ -182,7 +182,14 @@ eventListners = () =>{
 
     })
     // All the click events
- 
+    let panels = document.querySelectorAll('.panel');
+    panels.forEach((panel)=>{
+        panel.addEventListener('dblclick', (e)=>{
+            let color = document.querySelector('#color')
+            color.focus();
+            color.click();
+        })
+    })
     let empty = 1;
     window.addEventListener('click', (e)=>{
         let menu = document.getElementById('menu');
