@@ -492,6 +492,8 @@ ul{
     }
     .todo_text{
         padding-left: .25em;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
 }
 @media only screen and (max-width: 727px){

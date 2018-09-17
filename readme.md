@@ -2,7 +2,6 @@
 
 Live [demo!](https://pepscrub.github.io/homepage/)
 # Features!
-*Newest first*
   - Ability to change and modify boards
   - Ability to add custom weatherAPI ids via console
   - Search bar
@@ -14,6 +13,11 @@ Live [demo!](https://pepscrub.github.io/homepage/)
   - Change search engines with vodo magic
 
 ### Latest update
+  **1.4.3**
+  - Added ability to change panels via scrolling
+  - Added popup menu (When you click on the icon on the extension bar)
+  - Fixed anchor tag problem with popup menu 
+  - Fixed phone version of todo lists border radius
   - Added the ability to change and modify boards 
   - Cleaned up most of the Javascript
   - Added event Listners to the arrow keys (You can now navigate through the boards via the arrow keys)

@@ -24,6 +24,27 @@ window.addEventListener('load', function(){
     }
 });
 
+// Recoded how anchor tags work inorder for popup html to function normally
+
+window.addEventListener('load',()=>{
+    const json = document.querySelectorAll('a');
+    json.forEach((elem)=>{
+        elem.addEventListener('click', (e)=>{
+            e.preventDefault();
+            e.path.forEach((item)=>{
+                if(elem === item){
+                    if(item.href != undefined && item.href != '' && item.hasAttribute('href')){
+                        console.log(item.href)
+                        // window.close();
+                        // window.open(item.href);
+                    }
+                }
+            })
+        })
+    })
+})
+
+
 devMessage = () =>{
     console.log('%cDear Developers!'+'%c\nIf you want to set your own ID for the weatherAPI type into the console'+'%c\nappId(youreidhere)',"font-family: 'Roboto' sans serif; color: red; font-weight: 900; font-size: 1.5em;","font-family: 'Roboto' sans serif;color:black","font-family: 'Roboto' sans serif; color: #ff674c;")
 }
@@ -188,7 +209,7 @@ eventListners = () =>{
             color.focus();
             color.click();
         })
-    })
+    }, false)
     let empty = 1;
     window.addEventListener('click', (e)=>{
         let menu = document.getElementById('menu');
@@ -200,7 +221,7 @@ eventListners = () =>{
         if(e.target != menu && e.path[3] != menu && e.path[2] != menu){
             menu.style = 'display: none;'
         }
-    })
+    }, false)
     input.addEventListener('click', (e)=>{ // Click out of the search panel 
         input.style = 'opacity: 0;';
         setTimeout(()=>{
@@ -209,11 +230,11 @@ eventListners = () =>{
             }
         }, 125)
         return;
-    })
+    }, false)
     btnAdd.addEventListener('click', (e)=>{
         engineScreen.style = 'display: block';
         return;
-    })
+    }, false)
     btnExit.addEventListener && engineScreen.addEventListener('click', (e)=>{
         if(e.path[0] == btnExit || e.path[0] == engineScreen){ // Fallback to child nodes of the elems where activating this event listner
             engineScreen.style = 'opacity: 0;';
@@ -224,15 +245,16 @@ eventListners = () =>{
             }, 125)
         }
         return;
-    })
+    }, false)
     engineScreen || btnExit.addEventListener('click', (e)=>{
         engineScreen.style = 'display: block';
         return;
-    })
+    }, false)
     search_btn.addEventListener('click', (e)=>{
         input.style = 'display: block;';
         textarea.focus();
-    })
+    }, false)
+
     engineAdd.addEventListener('click', (e)=>{
         let elem = document.querySelector('#engines')
         let amount = (elem.childNodes.length - 1) / 2; // Calculate the amount of engines on screen (division by 2 is done due to the prefix also been a field within the child elems)
@@ -263,7 +285,7 @@ eventListners = () =>{
             divelem.appendChild(btn); // Button to delete 
             document.getElementById('engines').appendChild(divelem);
         }
-    })
+    }, false)
     engineDone.addEventListener('click',(e)=>{
         let sanitize = true, // Santization, literally only used to check an empty field thus far 
             tmp = document.querySelector('#engines').childNodes 
@@ -296,7 +318,7 @@ eventListners = () =>{
         footer.innerHTML = '';
         document.querySelector('#engines').innerHTML = ''
         engineFunc();
-    })
+    }, false)
 }
 
 // The date and clock at the top of the page
@@ -335,10 +357,6 @@ tabs = () =>{
         // Color Customization
         colorupdate.innerHTML = `:root{--red: ${currcolor} !important;}`;
         color.value = currcolor;
-
-        color.addEventListener('', (res)=>{
-            console.log(res);
-        })
 
         color.addEventListener('input', function(){
             localStorage.setItem('color', color.value);
@@ -384,8 +402,18 @@ tabs = () =>{
         if(e.keyCode === 37){
             panelEvent('neg')
         }
-    })
-
+    }, false)
+    let wheelTimeout = false;
+    document.addEventListener('mousewheel', (e)=>{
+        if(wheelTimeout) return;
+        if(e.wheelDelta > 0){
+            panelEvent('pos')
+        }else{
+            panelEvent('neg')
+        }
+        wheelTimeout = true
+        setTimeout(()=>{wheelTimeout = false},250); // Delay of 250ms
+    }, false)
 }
 
 tab_panels = () =>{
