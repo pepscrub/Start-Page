@@ -407,9 +407,9 @@ tabs = () =>{
     document.addEventListener('mousewheel', (e)=>{
         if(wheelTimeout) return;
         if(e.wheelDelta > 0){
-            panelEvent('pos')
-        }else{
             panelEvent('neg')
+        }else{
+            panelEvent('pos')
         }
         wheelTimeout = true
         setTimeout(()=>{wheelTimeout = false},250); // Delay of 250ms

@@ -12,6 +12,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 1.125em; /* 18px */
     list-style: none;
+    overflow: hidden;
 }
 @keyframes opacity{
     0%{opacity: 0;}
@@ -350,7 +351,6 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
     text-decoration: none;
     color: rgb(var(--white));
     text-align: center;
-    width: 2em;
 }
 .list > li > a:hover, .list > li > a:hover > i{
     text-decoration: none;
