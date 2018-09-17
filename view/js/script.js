@@ -127,7 +127,6 @@ eventListners = () =>{
                                     url = res.href.replace(/\"/, '');
                                 board = board.replace(/\\/, '');
                                 if(board === '' || board === ' ') board = `/empty${Math.floor(Math.random(100) * 10)}/`;
-                                if(url === '' || url === ' ' || /^https:/.test(url) || /^http:/.test(url) || /^www./.test(url)) url = `https://www.example.com`;
                                 url = url.replace(/\\/, ''); // Some real basic sanitization
                                 tmpString += `{"board": "${board}","url": "${url}"},`
                             }
