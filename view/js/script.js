@@ -607,7 +607,8 @@ engineFunc = () =>{
             }
         })
         if(e.code == 'Enter' && e.key == 'Enter' && e.keyCode == '13' && selected != undefined){
-            location.href = search_url;
+            window.open(search_url);
+            window.close();
         }
     })
 }
