@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <meta charset="utf-8" /> 
+        <link rel="icon" href="view/imgs/icon.png">
+        <title>Ｈｏｍｅ　挨ェベ</title>
+        <link rel="stylesheet" type="text/css" href="view/css/style.css">
+        <link rel="stylesheet" type="text/css" href="view/css/all.css">
+        <script src="view/js/script.js"></script>
+        <style id="tabsupdate"></style>
+        <style id="colorupdate"></style>
+        <style>
+            body{
+                width: 35em;
+                height: 25em;
+                padding: 0;
+            }
+            .infobar{
+                position: fixed;
+                z-index: 100;
+                width: 100%;
+                background-color: transparent;
+            }
+            main{
+                height: 100%;
+            }
+            .weather{
+                top: 21.75em;
+            }
+            .panels{
+                margin-top: 0em;
+                height: 100%;
+            }
+            .todo_text{
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+                height: 100%;
+            }
+            .btn-add{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loader"></div>
+        <div class="infobar">
+            <div class="clock">00:00</div>
+            <div class="tabs">|</div>
+            <div class="date"></div>
+        </div>
+        <main id="mainapp">
+            <div class="panels">
+                <div class="panel hide">
+                    <h1 class="title">General</h1>
+                    <div class="weather"></div>
+                    <ul class="list">
+                        <li>
+                            <a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+                            <span> Youtube</span>
+                        </li>
+                        <li>
+                            <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
+                            <span> Twitter</span>
+                        </li>
+                        <li>
+                            <a href="https://www.twitch.tv"><i class="fab fa-twitch"></i></a>
+                            <span> Twitch</span>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
+                            <span> Facebook</span>
+                        </li>
+                        <li>
+                            <a href="https://open.spotify.com/browse/featured"><i class="fab fa-spotify"></i></a>
+                            <span> Spotify</span>
+                        </li>
+                    </ul>
+                    <div class="ping" title="Your current latency between you and a server hosted in USA"><span class="red"></span></div>
+                </div>
+                <div class="panel hide">
+                    <h1 class="title">Boards</h1>
+                    <ul class="list">
+                        <li>
+                            <a href="https://www.example1.com" class="listItem">/empty1/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example2.com" class="listItem">/empty2/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example3.com" class="listItem">/empty3/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example4.com" class="listItem">/empty4/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example5.com" class="listItem">/empty5/</a>
+                        </li>
+                    </ul>
+                    <ul class="list">
+                        <li>
+                            <a href="https://www.example6.com" class="listItem">/empty6/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example7.com" class="listItem">/empty7/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example8.com" class="listItem">/empty8/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example9.com" class="listItem">/empty9/</a>
+                        </li>
+                        <li>
+                            <a href="https://www.example10.com" class="listItem">/empty10/</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel hide">
+                    <h1 class="title">Todo</h1>
+                    <textarea class="todo_text" placeholder="Is there something to do?..."></textarea>
+                </div>
+            </div>
+            <div class="searchengine" style="display: none;">
+                <div class="centeredcard">
+                    <div class="formelem">
+                        <input name="search" type="text" placeholder="Search" autocomplete="off" autofocus>
+                        <a class="btn-add"><i class="fas fa-plus-circle"></i></a>
+                    </div>
+                    <div class="searchfooter">
+                        <ul class="engines"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="engineAdd" style="display: none;">
+                <div class="centeredcard2">
+                    <h1>Search Engines</h1>
+                    <a class="buttonEngine"><i class="fas fa-plus"></i></a>
+                    <div class="formelem" id="engines"></div>
+                    <a class="buttonExit"><i class="fas fa-times"></i></a>
+                    <a class="buttonComplete"><i class="fas fa-check"></i></a>
+                </div>
+            </div>
+        </main>
+        <div id="background"></div>
+        <a id="search"><i class="fas fa-search"></i></a>
+        <a id="store" href="https://chrome.google.com/webstore/category/extensions"><i class="fas fa-th-large"></i></a>
+        <input type="color" id="color">
+        <div id="menu" style="display: none;">
+            <ul>
+                <li><input type="text" id="itemText"></li>
+                <li><input type="text" id="itemURL"></li>
+            </ul>
+        </div>
+    </body>
+</html>

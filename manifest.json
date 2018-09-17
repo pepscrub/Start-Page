@@ -1,6 +1,6 @@
 {
     "name": "<START> A startup page project",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Replaces the default home page with a customized page.",
     "icons":{
         "256": "view/imgs/icon.png",
@@ -10,7 +10,7 @@
         "newtab": "index.html"
     },
     "browser_action":{
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_title": "Home page"
     },
 
