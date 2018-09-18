@@ -34,9 +34,8 @@ window.addEventListener('load',()=>{
             e.path.forEach((item)=>{
                 if(elem === item){
                     if(item.href != undefined && item.href != '' && item.hasAttribute('href')){
-                        console.log(item.href)
-                        // window.close();
-                        // window.open(item.href);
+                        window.close();
+                        window.open(item.href);
                     }
                 }
             })
