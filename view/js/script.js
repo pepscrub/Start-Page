@@ -349,40 +349,56 @@ tabs = () =>{
         panels = document.querySelectorAll('.panel'),
         color = document.getElementById('color'),
         colorupdate = document.getElementById('colorupdate'),
-        currtab,i,currcolor, styleelem, styletext;
-        currcolor = localStorage.getItem('color') ? localStorage.getItem('color') : '#f1355a';
+        currtab,i,currcolor, tabCalc,
+        currcolor = localStorage.getItem('color') ? localStorage.getItem('color') : '#f1355a',
         currtab = localStorage.getItem('activetab') ? localStorage.getItem('activetab') : localStorage.setItem('activetab', 0); // If ther isn't any local storage set, this sets it
 
-        // Color Customization
-        colorupdate.innerHTML = `:root{--red: ${currcolor} !important;}`;
-        color.value = currcolor;
+    // Color Customization
+    colorupdate.innerHTML = `:root{--red: ${currcolor} !important;}`;
+    color.value = currcolor;
 
-        color.addEventListener('input', function(){
-            localStorage.setItem('color', color.value);
-            colorupdate.innerHTML = ':root{--red: ' + color.value + ' !important;}';
-        }, false)
+    color.addEventListener('input', function(){
+        localStorage.setItem('color', color.value);
+        colorupdate.innerHTML = ':root{--red: ' + color.value + ' !important;}';
+    }, false)
     
-    if(currtab == undefined){ // Fallback since localstorage can still execute while the rest of the code executes
-        currtab = 0;
+    tabCalc = () =>{
+        if(currtab == undefined){ // Fallback since localstorage can still execute while the rest of the code executes
+            currtab = 0;
+        }
+        if(currtab == 1){
+            updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
+            panels[1].classList.add('active');
+            panels[1].classList.remove('hide');
+        }
+        if(currtab == 2){
+            updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';
+            panels[2].classList.add('active')
+            panels[2].classList.remove('hide');
+        }
+        if(currtab >= 3 || currtab == 0){
+            currtab = 0;
+            updatestyle.innerHTML = '';
+            panels[0].classList.add('active');
+            panels[0].classList.remove('hide');
+        }
     }
-    if(currtab == 1){
-        updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';
-        panels[1].classList.add('active');
-        panels[1].classList.remove('hide');
-    }
-    if(currtab == 2){
-        updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';
-        panels[2].classList.add('active')
-        panels[2].classList.remove('hide');
-    }
-    if(currtab >= 3 || currtab == 0){
-        currtab = 0;
-        updatestyle.innerHTML = '';
-        panels[0].classList.add('active');
-        panels[0].classList.remove('hide');
-    }
-    let panelEvent = (arg) => {for(i = 0; i < panels.length; i++){panels[i].classList.remove('active');display(panels[i]);}if(arg==='pos'){currtab++}else{currtab--;;if(currtab === 0){currtab = 3;}if(currtab <= 0){currtab = 2;}};setTimeout(()=>{if(currtab == 1){updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';panels[1].classList.add('active');panels[1].classList.remove('hide');}if(currtab == 2){updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';panels[2].classList.add('active');panels[2].classList.remove('hide');}if(currtab >= 3){currtab = 0;updatestyle.innerHTML = '';panels[0].classList.add('active');panels[0].classList.remove('hide');}localStorage.setItem('activetab', currtab);}, 550);}
+    tabCalc();
+    let panelEvent = (arg) => {for(i = 0; i < panels.length; i++){panels[i].classList.remove('active');display(panels[i]);}if(arg==='pos'){currtab++}else{currtab--;;if(currtab === 0){currtab = 3;}if(currtab <= 0){currtab = 2;}};setTimeout(()=>{if(currtab == 1){updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';panels[1].classList.add('active');panels[1].classList.remove('hide');}if(currtab == 2){updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';panels[2].classList.add('active');panels[2].classList.remove('hide');}if(currtab >= 3){currtab = 0;updatestyle.innerHTML = '';panels[0].classList.add('active');panels[0].classList.remove('hide');};localStorage.setItem('activetab', currtab);}, 550);}
     // Clickable tabs up the top of the page
+    window.addEventListener('storage', (value)=>{
+        console.log(value);
+        let text = document.querySelector('.todo_text'),
+            item = localStorage.getItem('todo')
+        if(text !== document.activeElement){
+            if(value.key === 'todo'){
+                text.value = value.newValue;
+            }
+        }
+        if('activetab' === value.key ){
+            panelEvent('pos');
+        }
+    })
 
     elem.addEventListener('click', function(e){ // The clickable icon in the top middle |
         panelEvent('pos');
@@ -411,7 +427,7 @@ tabs = () =>{
             panelEvent('pos')
         }
         wheelTimeout = true
-        setTimeout(()=>{wheelTimeout = false},250); // Delay of 250ms
+        setTimeout(()=>{wheelTimeout = false},1000); // Delay of 250ms
     }, false)
 }
 
@@ -561,9 +577,7 @@ weather_fetch = (loc, ping) =>{
             throw new Error('Something went wrong!' + res.status);
         }
     })
-    .then(res => {
-        console.debug(res);
-    }).catch(error => {
+    .catch(error => {
           fetch_error = 'Unable to get weather';
     });
 }
@@ -575,8 +589,9 @@ todo = () =>{
         text.value = item;
     }
     text.addEventListener('keyup', function(e){
-        localStorage.removeItem('todo');
-        localStorage.setItem('todo', text.value);
+        if(text.value != item){
+            localStorage.setItem('todo', text.value);
+        }
     })
 }
 
