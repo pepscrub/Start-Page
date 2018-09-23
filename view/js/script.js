@@ -101,7 +101,6 @@ eventListners = () =>{
 
     
         if(e.keyCode == 27){ // Escape for search and engine add screens
-            console.log(input.style.cssText)
             if(input.style.cssText == 'display: block;'){
                 input.style = 'opacity: 0;';
                 setTimeout(()=>{
@@ -134,8 +133,6 @@ eventListners = () =>{
                 if(arg !== 'text'){
                     board.value = e.target.innerHTML;
                     boardurl.value = e.target.href;
-                    console.log(e.target);
-                    console.log('----------')
                 }
                 menu.style = `display: block; left: ${X}px; top: ${e.screenY-150}px;`;
                 let tmpString = '[',instance = 0;
@@ -387,7 +384,6 @@ tabs = () =>{
     let panelEvent = (arg) => {for(i = 0; i < panels.length; i++){panels[i].classList.remove('active');display(panels[i]);}if(arg==='pos'){currtab++}else{currtab--;;if(currtab === 0){currtab = 3;}if(currtab <= 0){currtab = 2;}};setTimeout(()=>{if(currtab == 1){updatestyle.innerHTML = '.tabs::before{opacity: 1; transform: translateY(0px);}';panels[1].classList.add('active');panels[1].classList.remove('hide');}if(currtab == 2){updatestyle.innerHTML = '.tabs::before, .tabs::after{opacity: 1; transform: translateY(0px);}';panels[2].classList.add('active');panels[2].classList.remove('hide');}if(currtab >= 3){currtab = 0;updatestyle.innerHTML = '';panels[0].classList.add('active');panels[0].classList.remove('hide');};localStorage.setItem('activetab', currtab);}, 550);}
     // Clickable tabs up the top of the page
     window.addEventListener('storage', (value)=>{
-        console.log(value);
         let text = document.querySelector('.todo_text'),
             item = localStorage.getItem('todo')
         if(text !== document.activeElement){
@@ -466,7 +462,8 @@ tab_ping = (latency) =>{
 weather_location = () =>{ 
     let appid = JSON.parse(localStorage.getItem('appIDS'));
     if("geolocation" in navigator){
-        if(localStorage.getItem('location')){
+        console.log(localStorage.getItem('location'));
+        if(localStorage.getItem('location') != null){
             let pos = JSON.parse(localStorage.getItem('location'));
             let request_time = new Date().getMilliseconds();
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&appid=${appid.ID}`)
@@ -476,7 +473,7 @@ weather_location = () =>{
                     weather_display(resJson, request_time);
                 })
             })
-        }else{
+        }else if(localStorage.getItem('location') === null){
             navigator.geolocation.getCurrentPosition((pos)=>{
                 let request_time = new Date().getMilliseconds();
                 let locationVals = {latitude: pos.coords.latitude, longitude: pos.coords.longitude};
@@ -507,9 +504,6 @@ weather_location = () =>{
             fetch_error = 'a error occured';
         })
     }
-    navigator.geolocation.watchPosition((pos)=>{
-
-    },
     (err)=>{
         if(err.code === err.PERMISSION_DENIED){ // If the user denies GEOLOCATION
             let request_time = new Date().getMilliseconds();
@@ -528,7 +522,7 @@ weather_location = () =>{
                 fetch_error = 'a error occured';
             })
         }
-    })
+    }
 }
 
 weather_display = (result, request) =>{
