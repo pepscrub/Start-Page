@@ -462,7 +462,6 @@ tab_ping = (latency) =>{
 weather_location = () =>{ 
     let appid = JSON.parse(localStorage.getItem('appIDS'));
     if("geolocation" in navigator){
-        console.log(localStorage.getItem('location'));
         if(localStorage.getItem('location') != null){
             let pos = JSON.parse(localStorage.getItem('location'));
             let request_time = new Date().getMilliseconds();
