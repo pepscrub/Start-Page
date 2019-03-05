@@ -130,7 +130,7 @@ eventListners = () =>{
             boardurl = document.getElementById('itemURL');
         // if(e.path[0].href == undefined) objelem = e.path[1] 
         objelem = e.path[0].href != undefined ? e.path[0] : e.path[1];
-        if(/^\//test(objelem.innerHTML)){// just tests to see if the right clicked elem starts with a forward slash
+        //test(objelem.innerHTML)){// just tests to see if the right clicked elem starts with a forward slash
             let boards = (arg) =>{
                 console.log(e)
                 console.log(arg)
