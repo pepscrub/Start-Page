@@ -215,11 +215,11 @@ eventListners = () =>{
     window.addEventListener('click', (e)=>{
         let menu = document.getElementById('menu');
         for(i = 0; i < btnDelete.length; i++){
-            if(btnDelete[i] == objelem || btnDelete[i] == e.path[1]){
-                objelem.parentElement.parentElement.remove();
+            if(btnDelete[i] == e.target || btnDelete[i] == e.path[1]){
+                e.target.parentElement.parentElement.remove();
             }
         }
-        if(objelem != menu && e.path[3] != menu && e.path[2] != menu){
+        if(e.target != menu && e.path[3] != menu && e.path[2] != menu){
             menu.style = 'display: none;'
         }
     }, false)
