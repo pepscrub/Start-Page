@@ -199,7 +199,7 @@ eventListners = () =>{
                     boards('text');
                 }
             })
-        } 
+        // } 
 
     })
     // All the click events
