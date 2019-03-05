@@ -262,7 +262,7 @@ input[name="search"]:hover::placeholder, input[name="search"]:focus::placeholder
 }
 .panels{
     transition: padding 275ms cubic-bezier(1, 1.43, 0, 0.9);
-    margin-top: 8em;
+    margin-top: 5%;
     height: 18em;
     padding: 0 1.5em;
 }
@@ -463,12 +463,20 @@ ul{
 }
 
 
-@media only screen and (max-width: 1080px){
+@media only screen and (max-width: 1367px){
     .panels > .panel{
         border-radius: 0;
     }
     .panels{
         padding: 0;
+        margin-top: 2.5%;
+        height: 22em;
+    }
+    .todo_text{
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        height: 100%;
+        padding: 1%;
     }
     .weather{
         font-size: .75em;
@@ -481,12 +489,12 @@ ul{
         top: -1.5em;
     }
 }
-@media only screen and (max-width: 816px){
+@media only screen and (max-width: 997px){
     .panels > div:nth-child(1){
         background-size: auto 100%;
     }
 }
-@media only screen and (max-width: 802px){
+@media only screen and (max-width: 980px){
     .panels > div:nth-child(2){
         background-size: auto 100%;
     }

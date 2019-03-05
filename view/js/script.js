@@ -109,7 +109,7 @@ eventListners = () =>{
                     }
                 }, 125)
             }
-            if(engineScreen.style.cssText == 'display: block;'){
+            if(engineScreen.style.cssText == 'display: block;'){ // Closes the engine list screen
                 engineScreen.style = 'opacity: 0;';
                 setTimeout(()=>{
                     if(engineScreen.style.cssText != 'display: block;'){
@@ -128,11 +128,16 @@ eventListners = () =>{
             listitems = document.querySelectorAll('.list');
             board = document.getElementById('itemText'),
             boardurl = document.getElementById('itemURL');
-        if(/^\//.test(e.target.innerHTML)){// just tests to see if the right clicked elem starts with a forward slash
+        // if(e.path[0].href == undefined) objelem = e.path[1] 
+        objelem = e.path[0].href != undefined ? e.path[0] : e.path[1];
+        console.log(objelem)
+        // if(/^\//.test(objelem.innerHTML)){// just tests to see if the right clicked elem starts with a forward slash
             let boards = (arg) =>{
+                console.log(e)
+                console.log(arg)
                 if(arg !== 'text'){
-                    board.value = e.target.innerHTML;
-                    boardurl.value = e.target.href;
+                    board.value = objelem.innerHTML;
+                    boardurl.value = objelem.href;
                 }
                 menu.style = `display: block; left: ${X}px; top: ${e.screenY-150}px;`;
                 let tmpString = '[',instance = 0;
@@ -151,7 +156,8 @@ eventListners = () =>{
                     })
                 }
                 let jsonString = tmpString.replace(/,$/, '') + ']';
-                localStorage.setItem('boards', jsonString);            }
+                localStorage.setItem('boards', jsonString);            
+            }
             let ultrawide = window.outerWidth > 1920 ? true : false, X;
                 X = e.screenX < 0 && ultrawide ? 2560 + e.screenX : e.screenX; // Fallback for ultra wide monitors
             if(ultrawide){
@@ -176,7 +182,7 @@ eventListners = () =>{
                 if(instance === 1){
                     return;
                 }else{
-                    e.target.innerHTML = board.value;
+                    objelem.innerHTML = board.value;
                     boards('text');
                 }
             })
@@ -190,11 +196,11 @@ eventListners = () =>{
                 if(instance === 1){
                     return;
                 }else{
-                    e.target.href = boardurl.value;
+                    objelem.href = boardurl.value;
                     boards('text');
                 }
             })
-        } 
+        // } 
 
     })
     // All the click events
@@ -210,11 +216,11 @@ eventListners = () =>{
     window.addEventListener('click', (e)=>{
         let menu = document.getElementById('menu');
         for(i = 0; i < btnDelete.length; i++){
-            if(btnDelete[i] == e.target || btnDelete[i] == e.path[1]){
-                e.target.parentElement.parentElement.remove();
+            if(btnDelete[i] == objelem || btnDelete[i] == e.path[1]){
+                objelem.parentElement.parentElement.remove();
             }
         }
-        if(e.target != menu && e.path[3] != menu && e.path[2] != menu){
+        if(objelem != menu && e.path[3] != menu && e.path[2] != menu){
             menu.style = 'display: none;'
         }
     }, false)
