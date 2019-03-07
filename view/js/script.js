@@ -130,10 +130,8 @@ eventListners = () =>{
             boardurl = document.getElementById('itemURL');
         // if(e.path[0].href == undefined) objelem = e.path[1] 
         objelem = e.path[0].href != undefined ? e.path[0] : e.path[1];
-        //test(objelem.innerHTML)){// just tests to see if the right clicked elem starts with a forward slash
+        if(/\//.test(e.target)){// just tests to see if the right clicked elem starts with a forward slash
             let boards = (arg) =>{
-                console.log(e)
-                console.log(arg)
                 if(arg !== 'text'){
                     board.value = objelem.innerHTML;
                     boardurl.value = objelem.href;
@@ -155,8 +153,8 @@ eventListners = () =>{
                     })
                 }
                 let jsonString = tmpString.replace(/,$/, '') + ']';
-                localStorage.setItem('boards', jsonString);            
-            }
+                localStorage.setItem('boards', jsonString);   
+            }         
             let ultrawide = window.outerWidth > 1920 ? true : false, X;
                 X = e.screenX < 0 && ultrawide ? 2560 + e.screenX : e.screenX; // Fallback for ultra wide monitors
             if(ultrawide){
@@ -199,7 +197,7 @@ eventListners = () =>{
                     boards('text');
                 }
             })
-        // } 
+        } 
 
     })
     // All the click events

@@ -1,6 +1,6 @@
 {
     "name": "<START> A startup page project",
-    "version": "1.5",
+    "version": "1.6",
     "description": "Replaces the default home page with a customized page.",
     "icons":{
         "256": "view/imgs/icon.png",
